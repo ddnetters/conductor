@@ -42,5 +42,13 @@ export function loadConfig(): Config {
   }
 }
 
-// Global config instance
-export const config = loadConfig();
+// Global config instance - lazy loaded
+let _config: Config | null = null;
+export const config = new Proxy({} as Config, {
+  get(target, prop) {
+    if (!_config) {
+      _config = loadConfig();
+    }
+    return _config[prop as keyof Config];
+  }
+});
