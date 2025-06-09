@@ -104,6 +104,14 @@ export interface GenericError {
   };
   request?: unknown;
   statusCode?: number;
+  details?: Record<string, unknown>;
+}
+
+// N8nClient configuration options
+export interface N8nClientOptions {
+  maxRetries?: number;
+  retryDelay?: number;
+  enableLogging?: boolean;
 }
 
 // MCP Tool response types

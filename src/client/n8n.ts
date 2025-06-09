@@ -11,14 +11,19 @@ import type {
   N8nError,
   WebhookResponse,
   GenericError,
+  N8nClientOptions,
 } from "../types.js";
 
 export class N8nClient {
   private client: AxiosInstance;
-  private maxRetries = 3;
-  private retryDelay = 1000; // 1 second base delay
+  private maxRetries: number;
+  private retryDelay: number;
+  private enableLogging: boolean;
 
-  constructor() {
+  constructor(options: N8nClientOptions = {}) {
+    this.maxRetries = options.maxRetries ?? 3;
+    this.retryDelay = options.retryDelay ?? 1000; // 1 second base delay
+    this.enableLogging = options.enableLogging ?? true;
     this.client = axios.create({
       baseURL: config.n8n.apiUrl,
       headers: {
@@ -31,11 +36,15 @@ export class N8nClient {
     // Add request interceptor for logging
     this.client.interceptors.request.use(
       (config) => {
-        console.log(`[N8N API] ${config.method?.toUpperCase()} ${config.url}`);
+        if (this.enableLogging) {
+          console.log(`[N8N API] ${config.method?.toUpperCase()} ${config.url}`);
+        }
         return config;
       },
       (error) => {
-        console.error("[N8N API] Request error:", error);
+        if (this.enableLogging) {
+          console.error("[N8N API] Request error:", error);
+        }
         return Promise.reject(error);
       }
     );
@@ -43,15 +52,19 @@ export class N8nClient {
     // Add response interceptor for error handling
     this.client.interceptors.response.use(
       (response) => {
-        console.log(
-          `[N8N API] ${response.status} ${response.config.method?.toUpperCase()} ${response.config.url}`
-        );
+        if (this.enableLogging) {
+          console.log(
+            `[N8N API] ${response.status} ${response.config.method?.toUpperCase()} ${response.config.url}`
+          );
+        }
         return response;
       },
       (error) => {
-        console.error(
-          `[N8N API] Error: ${error.response?.status} ${error.config?.method?.toUpperCase()} ${error.config?.url}`
-        );
+        if (this.enableLogging) {
+          console.error(
+            `[N8N API] Error: ${error.response?.status} ${error.config?.method?.toUpperCase()} ${error.config?.url}`
+          );
+        }
         throw this.handleError(error);
       }
     );
@@ -85,7 +98,11 @@ export class N8nClient {
 
         // Exponential backoff
         const delay = this.retryDelay * Math.pow(2, attempt);
-        console.log(`[N8N API] Retrying in ${delay}ms (attempt ${attempt + 1}/${this.maxRetries})`);
+        if (this.enableLogging) {
+          console.log(
+            `[N8N API] Retrying in ${delay}ms (attempt ${attempt + 1}/${this.maxRetries})`
+          );
+        }
         await new Promise((resolve) => setTimeout(resolve, delay));
       }
     }
@@ -217,7 +234,12 @@ export class N8nClient {
         case "delete":
           return (await this.client.delete(url, { headers })).data;
         default:
-          throw new Error(`Unsupported HTTP method: ${method}`);
+          throw {
+            message: `Unsupported HTTP method: ${method}`,
+            code: "INVALID_HTTP_METHOD",
+            statusCode: undefined,
+            details: { method },
+          } as N8nError;
       }
     });
   }
