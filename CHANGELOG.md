@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.0](https://github.com/ddnetters/conductor/compare/n8n-mcp-server@v0.1.0...n8n-mcp-server@v0.1.0) (2025-06-09)
+
+
+### 🚀 Features
+
+* **client:** implement complete n8n API client with authentication ([#18](https://github.com/ddnetters/conductor/issues/18)) ([afdd2ad](https://github.com/ddnetters/conductor/commit/afdd2ad8b9729d56c9336072b8077a8616904236))
+* implement complete MCP server core with all 11 tools ([#20](https://github.com/ddnetters/conductor/issues/20)) ([eef71e0](https://github.com/ddnetters/conductor/commit/eef71e070d4df1817c90092e6bd7370208909492))
+
+
+### 🏠 Miscellaneous
+
+* release main ([#19](https://github.com/ddnetters/conductor/issues/19)) ([1faa39c](https://github.com/ddnetters/conductor/commit/1faa39c6f12b2ef6006fbdac326bcd427f0a78c8))
+
 ## [0.1.0](https://github.com/ddnetters/n8n-mcp-server/compare/n8n-mcp-server@v0.1.0...n8n-mcp-server@v0.1.0) (2025-06-09)
 
 
