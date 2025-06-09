@@ -8,7 +8,7 @@ export class WorkflowHandlers {
     try {
       // TODO: Implement workflow listing
       const workflows = await this.client.listWorkflows(args);
-      
+
       return {
         content: [
           {
@@ -33,7 +33,7 @@ export class WorkflowHandlers {
     try {
       // TODO: Implement get workflow
       const workflow = await this.client.getWorkflow(args.workflowId);
-      
+
       return {
         content: [
           {
@@ -58,7 +58,7 @@ export class WorkflowHandlers {
     try {
       // TODO: Implement create workflow
       const workflow = await this.client.createWorkflow(args);
-      
+
       return {
         content: [
           {
@@ -84,7 +84,7 @@ export class WorkflowHandlers {
       // TODO: Implement update workflow
       const { workflowId, ...updateData } = args;
       const workflow = await this.client.updateWorkflow(workflowId, updateData);
-      
+
       return {
         content: [
           {
@@ -109,7 +109,7 @@ export class WorkflowHandlers {
     try {
       // TODO: Implement delete workflow
       await this.client.deleteWorkflow(args.workflowId);
-      
+
       return {
         content: [
           {
@@ -133,8 +133,8 @@ export class WorkflowHandlers {
   async activateWorkflow(args: { workflowId: string }): Promise<ToolResponse> {
     try {
       // TODO: Implement activate workflow
-      const workflow = await this.client.activateWorkflow(args.workflowId);
-      
+      await this.client.activateWorkflow(args.workflowId);
+
       return {
         content: [
           {
@@ -158,8 +158,8 @@ export class WorkflowHandlers {
   async deactivateWorkflow(args: { workflowId: string }): Promise<ToolResponse> {
     try {
       // TODO: Implement deactivate workflow
-      const workflow = await this.client.deactivateWorkflow(args.workflowId);
-      
+      await this.client.deactivateWorkflow(args.workflowId);
+
       return {
         content: [
           {

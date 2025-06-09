@@ -4,14 +4,18 @@ import type { ToolResponse } from "../types.js";
 export class WebhookHandlers {
   constructor(private client: N8nClient) {}
 
-  async runWebhook(args: { workflowName: string; data?: any; headers?: Record<string, string> }): Promise<ToolResponse> {
+  async runWebhook(args: {
+    workflowName: string;
+    data?: any;
+    headers?: Record<string, string>;
+  }): Promise<ToolResponse> {
     try {
       // TODO: Implement run webhook
       const result = await this.client.runWebhook(args.workflowName, {
         data: args.data,
-        headers: args.headers,
+        ...(args.headers && { headers: args.headers }),
       });
-      
+
       return {
         content: [
           {

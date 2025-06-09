@@ -28,11 +28,11 @@ class Logger {
   private formatMessage(level: string, message: string, meta?: any): string {
     const timestamp = new Date().toISOString();
     const baseMessage = `[${timestamp}] ${level.toUpperCase()}: ${message}`;
-    
+
     if (meta) {
       return `${baseMessage} ${JSON.stringify(meta)}`;
     }
-    
+
     return baseMessage;
   }
 
