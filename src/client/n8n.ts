@@ -23,7 +23,7 @@ export class N8nClient {
   constructor(options: N8nClientOptions = {}) {
     this.maxRetries = options.maxRetries ?? 3;
     this.retryDelay = options.retryDelay ?? 1000; // 1 second base delay
-    this.enableLogging = options.enableLogging ?? true;
+    this.enableLogging = options.enableLogging ?? false;
     this.client = axios.create({
       baseURL: config.n8n.apiUrl,
       headers: {
