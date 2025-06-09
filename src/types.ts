@@ -10,11 +10,11 @@ export interface N8nWorkflow {
   name: string;
   active: boolean;
   nodes: N8nNode[];
-  connections: Record<string, any>;
+  connections: Record<string, unknown>;
   createdAt: string;
   updatedAt: string;
   tags?: string[];
-  settings?: Record<string, any>;
+  settings?: Record<string, unknown>;
 }
 
 export interface N8nNode {
@@ -23,7 +23,7 @@ export interface N8nNode {
   type: string;
   typeVersion: number;
   position: [number, number];
-  parameters: Record<string, any>;
+  parameters: Record<string, unknown>;
 }
 
 export interface N8nExecution {
@@ -33,26 +33,26 @@ export interface N8nExecution {
   status: "running" | "success" | "error" | "waiting" | "canceled";
   startedAt: string;
   finishedAt?: string;
-  data?: Record<string, any>;
+  data?: Record<string, unknown>;
   error?: string;
 }
 
 export interface CreateWorkflowRequest {
   name: string;
   nodes: N8nNode[];
-  connections: Record<string, any>;
+  connections: Record<string, unknown>;
   active?: boolean;
   tags?: string[];
-  settings?: Record<string, any>;
+  settings?: Record<string, unknown>;
 }
 
 export interface UpdateWorkflowRequest {
   name?: string;
   nodes?: N8nNode[];
-  connections?: Record<string, any>;
+  connections?: Record<string, unknown>;
   active?: boolean;
   tags?: string[];
-  settings?: Record<string, any>;
+  settings?: Record<string, unknown>;
 }
 
 export interface ListWorkflowsQuery {
@@ -71,7 +71,7 @@ export interface ListExecutionsQuery {
 }
 
 export interface WebhookExecutionRequest {
-  data?: Record<string, any>;
+  data?: Record<string, unknown>;
   headers?: Record<string, string>;
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 }
@@ -79,9 +79,31 @@ export interface WebhookExecutionRequest {
 // Error types
 export interface N8nError {
   message: string;
-  code?: string;
+  code?: string | undefined;
+  statusCode?: number | undefined;
+  details?: Record<string, unknown> | undefined;
+}
+
+// Webhook response type
+export interface WebhookResponse {
+  success?: boolean;
+  data?: unknown;
+  message?: string;
+  error?: string;
+}
+
+// Generic error from axios or other sources
+export interface GenericError {
+  message: string;
+  response?: {
+    status: number;
+    data?: {
+      message?: string;
+      code?: string;
+    };
+  };
+  request?: unknown;
   statusCode?: number;
-  details?: Record<string, any>;
 }
 
 // MCP Tool response types

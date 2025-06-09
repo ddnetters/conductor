@@ -9,6 +9,8 @@ import type {
   ListExecutionsQuery,
   WebhookExecutionRequest,
   N8nError,
+  WebhookResponse,
+  GenericError,
 } from "../types.js";
 
 export class N8nClient {
@@ -57,27 +59,28 @@ export class N8nClient {
 
   // Retry wrapper for transient failures
   private async withRetry<T>(operation: () => Promise<T>): Promise<T> {
-    let lastError: any;
+    let lastError: GenericError | undefined;
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
         return await operation();
-      } catch (error: any) {
-        lastError = error;
+      } catch (error: unknown) {
+        const typedError = error as GenericError;
+        lastError = typedError;
 
         // Don't retry on client errors (4xx) except 429 (rate limit)
         if (
-          error.statusCode &&
-          error.statusCode >= 400 &&
-          error.statusCode < 500 &&
-          error.statusCode !== 429
+          typedError.statusCode &&
+          typedError.statusCode >= 400 &&
+          typedError.statusCode < 500 &&
+          typedError.statusCode !== 429
         ) {
-          throw error;
+          throw typedError;
         }
 
         // Don't retry on last attempt
         if (attempt === this.maxRetries) {
-          throw error;
+          throw typedError;
         }
 
         // Exponential backoff
@@ -87,7 +90,7 @@ export class N8nClient {
       }
     }
 
-    throw lastError;
+    throw lastError || new Error("Unknown error in retry operation");
   }
 
   // Workflow operations
@@ -194,7 +197,7 @@ export class N8nClient {
   }
 
   // Webhook operations
-  async runWebhook(workflowName: string, data?: WebhookExecutionRequest): Promise<any> {
+  async runWebhook(workflowName: string, data?: WebhookExecutionRequest): Promise<WebhookResponse> {
     return this.withRetry(async () => {
       const url = `/webhook/${encodeURIComponent(workflowName)}`;
       const headers = data?.headers || {};
@@ -231,26 +234,32 @@ export class N8nClient {
     }
   }
 
-  private handleError(error: any): N8nError {
-    if (error.response) {
+  private handleError(error: unknown): N8nError {
+    const typedError = error as GenericError;
+
+    if (typedError.response) {
       // HTTP error response
       return {
-        message: error.response.data?.message || error.message,
-        code: error.response.data?.code,
-        statusCode: error.response.status,
-        details: error.response.data,
+        message: typedError.response.data?.message || typedError.message,
+        code: typedError.response.data?.code || "HTTP_ERROR",
+        statusCode: typedError.response.status,
+        details: typedError.response.data || undefined,
       };
-    } else if (error.request) {
+    } else if (typedError.request) {
       // Network error
       return {
         message: "Network error: Unable to connect to n8n",
         code: "NETWORK_ERROR",
+        statusCode: undefined,
+        details: undefined,
       };
     } else {
       // Other error
       return {
-        message: error.message || "Unknown error occurred",
+        message: typedError.message || "Unknown error occurred",
         code: "UNKNOWN_ERROR",
+        statusCode: undefined,
+        details: undefined,
       };
     }
   }
