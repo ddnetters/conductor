@@ -1,0 +1,24 @@
+{
+  "release-type": "node",
+  "packages": {
+    ".": {
+      "package-name": "n8n-mcp-server",
+      "changelog-sections": [
+        {"type": "feat", "section": "🚀 Features"},
+        {"type": "fix", "section": "🐛 Bug Fixes"},
+        {"type": "docs", "section": "📚 Documentation"},
+        {"type": "style", "section": "🎨 Styling"},
+        {"type": "refactor", "section": "🔧 Code Refactoring"},
+        {"type": "perf", "section": "⚡ Performance Improvements"},
+        {"type": "test", "section": "🧪 Tests"},
+        {"type": "chore", "section": "🏠 Miscellaneous"}
+      ],
+      "release-as": "0.1.0"
+    }
+  },
+  "changelog-path": "CHANGELOG.md",
+  "pull-request-title-pattern": "chore: release ${version}",
+  "separate-pull-requests": false,
+  "tag-separator": "@",
+  "include-v-in-tag": true
+}
