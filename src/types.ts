@@ -58,6 +58,8 @@ export interface UpdateWorkflowRequest {
 export interface ListWorkflowsQuery {
   active?: boolean;
   tags?: string[];
+  limit?: number;
+  offset?: number;
 }
 
 export interface ListExecutionsQuery {
@@ -65,11 +67,13 @@ export interface ListExecutionsQuery {
   status?: N8nExecution["status"];
   limit?: number;
   offset?: number;
+  includeData?: boolean;
 }
 
 export interface WebhookExecutionRequest {
   data?: Record<string, any>;
   headers?: Record<string, string>;
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 }
 
 // Error types
