@@ -33,6 +33,7 @@ jobs:
           deps
           ci
           security
+          release
         requireScope: false
         subjectPattern: ^(?![A-Z]).+$
         subjectPatternError: |
