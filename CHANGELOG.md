@@ -9,6 +9,25 @@
 * implement complete MCP server core with all 11 tools ([#20](https://github.com/ddnetters/conductor/issues/20)) ([eef71e0](https://github.com/ddnetters/conductor/commit/eef71e070d4df1817c90092e6bd7370208909492))
 
 
+### 🐛 Bug Fixes
+
+* update deprecated release-please action ([#38](https://github.com/ddnetters/conductor/issues/38)) ([2bbd237](https://github.com/ddnetters/conductor/commit/2bbd237c46c88765b0a740043afab9fec2cd26e2))
+
+
+### 🏠 Miscellaneous
+
+* release main ([#19](https://github.com/ddnetters/conductor/issues/19)) ([1faa39c](https://github.com/ddnetters/conductor/commit/1faa39c6f12b2ef6006fbdac326bcd427f0a78c8))
+* release main ([#37](https://github.com/ddnetters/conductor/issues/37)) ([4593642](https://github.com/ddnetters/conductor/commit/45936421e17e9061da62a9939ad220ced0517ed3))
+
+## [0.1.0](https://github.com/ddnetters/conductor/compare/n8n-mcp-server@v0.1.0...n8n-mcp-server@v0.1.0) (2025-06-09)
+
+
+### 🚀 Features
+
+* **client:** implement complete n8n API client with authentication ([#18](https://github.com/ddnetters/conductor/issues/18)) ([afdd2ad](https://github.com/ddnetters/conductor/commit/afdd2ad8b9729d56c9336072b8077a8616904236))
+* implement complete MCP server core with all 11 tools ([#20](https://github.com/ddnetters/conductor/issues/20)) ([eef71e0](https://github.com/ddnetters/conductor/commit/eef71e070d4df1817c90092e6bd7370208909492))
+
+
 ### 🏠 Miscellaneous
 
 * release main ([#19](https://github.com/ddnetters/conductor/issues/19)) ([1faa39c](https://github.com/ddnetters/conductor/commit/1faa39c6f12b2ef6006fbdac326bcd427f0a78c8))
