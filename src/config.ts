@@ -24,9 +24,9 @@ export function loadConfig(): Config {
     },
     server: {
       port: parseInt(process.env.PORT || "3000", 10),
-      logLevel: (process.env.LOG_LEVEL as any) || "info",
+      logLevel: (process.env.LOG_LEVEL as "error" | "warn" | "info" | "debug") || "info",
     },
-    nodeEnv: (process.env.NODE_ENV as any) || "development",
+    nodeEnv: (process.env.NODE_ENV as "development" | "production" | "test") || "development",
   };
 
   try {
@@ -50,5 +50,5 @@ export const config = new Proxy({} as Config, {
       _config = loadConfig();
     }
     return _config[prop as keyof Config];
-  }
+  },
 });
