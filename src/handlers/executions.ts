@@ -8,7 +8,7 @@ export class ExecutionHandlers {
     try {
       // TODO: Implement list executions
       const executions = await this.client.listExecutions(args);
-      
+
       return {
         content: [
           {
@@ -33,7 +33,7 @@ export class ExecutionHandlers {
     try {
       // TODO: Implement get execution
       const execution = await this.client.getExecution(args.executionId);
-      
+
       return {
         content: [
           {
@@ -58,7 +58,7 @@ export class ExecutionHandlers {
     try {
       // TODO: Implement delete execution
       await this.client.deleteExecution(args.executionId);
-      
+
       return {
         content: [
           {

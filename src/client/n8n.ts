@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { config } from "../config.js";
 import type {
   N8nWorkflow,
@@ -34,59 +34,59 @@ export class N8nClient {
   }
 
   // Workflow operations
-  async listWorkflows(query?: ListWorkflowsQuery): Promise<N8nWorkflow[]> {
+  async listWorkflows(_query?: ListWorkflowsQuery): Promise<N8nWorkflow[]> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
-  async getWorkflow(id: string): Promise<N8nWorkflow> {
+  async getWorkflow(_id: string): Promise<N8nWorkflow> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
-  async createWorkflow(workflow: CreateWorkflowRequest): Promise<N8nWorkflow> {
+  async createWorkflow(_workflow: CreateWorkflowRequest): Promise<N8nWorkflow> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
-  async updateWorkflow(id: string, workflow: UpdateWorkflowRequest): Promise<N8nWorkflow> {
+  async updateWorkflow(_id: string, _workflow: UpdateWorkflowRequest): Promise<N8nWorkflow> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
-  async deleteWorkflow(id: string): Promise<void> {
+  async deleteWorkflow(_id: string): Promise<void> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
-  async activateWorkflow(id: string): Promise<N8nWorkflow> {
+  async activateWorkflow(_id: string): Promise<N8nWorkflow> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
-  async deactivateWorkflow(id: string): Promise<N8nWorkflow> {
+  async deactivateWorkflow(_id: string): Promise<N8nWorkflow> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
   // Execution operations
-  async listExecutions(query?: ListExecutionsQuery): Promise<N8nExecution[]> {
+  async listExecutions(_query?: ListExecutionsQuery): Promise<N8nExecution[]> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
-  async getExecution(id: string): Promise<N8nExecution> {
+  async getExecution(_id: string): Promise<N8nExecution> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
-  async deleteExecution(id: string): Promise<void> {
+  async deleteExecution(_id: string): Promise<void> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
 
   // Webhook operations
-  async runWebhook(workflowName: string, data?: WebhookExecutionRequest): Promise<any> {
+  async runWebhook(_workflowName: string, _data?: WebhookExecutionRequest): Promise<any> {
     // TODO: Implement actual API call
     throw new Error("Not implemented yet");
   }
