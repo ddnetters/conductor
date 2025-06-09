@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0](https://github.com/ddnetters/n8n-mcp-server/compare/n8n-mcp-server@v0.1.0...n8n-mcp-server@v0.1.0) (2025-06-09)
+
+
+### 🚀 Features
+
+* **client:** implement complete n8n API client with authentication ([#18](https://github.com/ddnetters/n8n-mcp-server/issues/18)) ([afdd2ad](https://github.com/ddnetters/n8n-mcp-server/commit/afdd2ad8b9729d56c9336072b8077a8616904236))
+
 ## [0.1.0](https://github.com/ddnetters/n8n-mcp-server/compare/n8n-mcp-server-v0.1.0...n8n-mcp-server@v0.1.0) (2025-06-09)
 
 
