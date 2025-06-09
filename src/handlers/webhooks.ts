@@ -9,7 +9,7 @@ export class WebhookHandlers {
       // TODO: Implement run webhook
       const result = await this.client.runWebhook(args.workflowName, {
         data: args.data,
-        headers: args.headers,
+        ...(args.headers && { headers: args.headers }),
       });
       
       return {
