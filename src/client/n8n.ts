@@ -196,7 +196,7 @@ export class N8nClient {
   // Webhook operations
   async runWebhook(workflowName: string, data?: WebhookExecutionRequest): Promise<any> {
     return this.withRetry(async () => {
-      const url = `/webhook/${workflowName}`;
+      const url = `/webhook/${encodeURIComponent(workflowName)}`;
       const headers = data?.headers || {};
 
       // Use the appropriate HTTP method
