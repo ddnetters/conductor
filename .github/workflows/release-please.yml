@@ -1,0 +1,45 @@
+name: 🚀 Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🚀 Run Release Please
+        id: release
+        uses: google-github-actions/release-please-action@v4
+          
+      - name: 📦 Setup Node.js (if release created)
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+          
+      - name: 📥 Checkout code (if release created)
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v4
+        
+      - name: 📚 Install dependencies (if release created)
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm ci
+        
+      - name: 🏗️ Build package (if release created)
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm run build
+        
+      # Uncomment when ready to publish to npm
+      # - name: 📦 Publish to npm (if release created)
+      #   if: ${{ steps.release.outputs.release_created }}
+      #   run: npm publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
