@@ -1,13 +1,13 @@
 import { N8nClient } from "../client/n8n.js";
-import type { ToolResponse } from "../types.js";
+import type { ToolResponse, ListExecutionsQuery } from "../types.js";
 
 export class ExecutionHandlers {
   constructor(private client: N8nClient) {}
 
-  async listExecutions(args: any): Promise<ToolResponse> {
+  async listExecutions(args: unknown): Promise<ToolResponse> {
     try {
       // TODO: Implement list executions
-      const executions = await this.client.listExecutions(args);
+      const executions = await this.client.listExecutions(args as ListExecutionsQuery);
 
       return {
         content: [

@@ -1,13 +1,13 @@
 import { N8nClient } from "../client/n8n.js";
-import type { ToolResponse } from "../types.js";
+import type { ToolResponse, ListWorkflowsQuery, CreateWorkflowRequest } from "../types.js";
 
 export class WorkflowHandlers {
   constructor(private client: N8nClient) {}
 
-  async listWorkflows(args: any): Promise<ToolResponse> {
+  async listWorkflows(args: unknown): Promise<ToolResponse> {
     try {
       // TODO: Implement workflow listing
-      const workflows = await this.client.listWorkflows(args);
+      const workflows = await this.client.listWorkflows(args as ListWorkflowsQuery);
 
       return {
         content: [
@@ -54,10 +54,10 @@ export class WorkflowHandlers {
     }
   }
 
-  async createWorkflow(args: any): Promise<ToolResponse> {
+  async createWorkflow(args: unknown): Promise<ToolResponse> {
     try {
       // TODO: Implement create workflow
-      const workflow = await this.client.createWorkflow(args);
+      const workflow = await this.client.createWorkflow(args as CreateWorkflowRequest);
 
       return {
         content: [
@@ -79,7 +79,10 @@ export class WorkflowHandlers {
     }
   }
 
-  async updateWorkflow(args: { workflowId: string; [key: string]: any }): Promise<ToolResponse> {
+  async updateWorkflow(args: {
+    workflowId: string;
+    [key: string]: unknown;
+  }): Promise<ToolResponse> {
     try {
       // TODO: Implement update workflow
       const { workflowId, ...updateData } = args;

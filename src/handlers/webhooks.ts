@@ -6,13 +6,13 @@ export class WebhookHandlers {
 
   async runWebhook(args: {
     workflowName: string;
-    data?: any;
+    data?: unknown;
     headers?: Record<string, string>;
   }): Promise<ToolResponse> {
     try {
       // TODO: Implement run webhook
       const result = await this.client.runWebhook(args.workflowName, {
-        data: args.data,
+        data: args.data as Record<string, unknown>,
         ...(args.headers && { headers: args.headers }),
       });
 
