@@ -1,70 +1,75 @@
-# 🤖 n8n MCP Server
+![Conductor Banner](./docs/logo_narrow.webp)
 
-A Model Context Protocol (MCP) server that provides AI assistants with the ability to interact with n8n automation platform APIs. This enables AI models to create, manage, and execute n8n workflows programmatically.
+# 🎼 Conductor – n8n MCP Server
+
+**Conductor** is a developer-friendly Model Context Protocol (MCP) server that gives AI agents secure, real-time access to your [n8n](https://n8n.io) workflows. Whether you want to list, run, build, or manage automations—Conductor bridges the gap between natural language and operational workflows.
+
+> Expose your n8n instance as a toolset to agents like Claude, GPT, LangChain, and more.
+
+---
 
 ## ✨ Features
 
-- **🔄 Workflow Management**: Create, read, update, delete, and manage n8n workflows
-- **📊 Execution Monitoring**: Monitor and manage workflow executions
-- **🎣 Webhook Integration**: Trigger workflows via webhooks
-- **🛡️ Type Safety**: Full TypeScript support with robust type definitions
-- **⚠️ Error Handling**: Comprehensive error handling and validation
-- **🔐 Authentication**: Secure API key authentication with n8n
+- 🔧 **Workflow Control** – List, create, activate, update, delete workflows
+- 🎛 **Execution Access** – Query, inspect, or delete execution history
+- 🌐 **Webhook Triggering** – Fire workflows remotely via webhook endpoints
+- 🧠 **MCP-Native** – Exposes n8n as MCP tools (JSON-RPC 2.0 with streaming)
+- 🛡️ **Secure by Default** – N8N API key authentication and optional request auth
+- 🧰 **Type-Safe Toolkit** – Written in full TypeScript with robust validation
 
-## 📋 Prerequisites
+---
 
-- Node.js 18+ and npm
-- Access to n8n instance (local or cloud)
-- n8n API key
+## 📦 Prerequisites
+
+- Node.js **18+**
+- Access to a local or remote **n8n instance**
+- Your **n8n API key** with appropriate access
+
+---
 
 ## 🚀 Quick Start
 
-### 📦 Installation
+### 🧪 Install & Configure
 
 ```bash
-# Clone the repository
-git clone https://github.com/ddnetters/n8n-mcp-server.git
-cd n8n-mcp-server
-
-# Install dependencies
+git clone https://github.com/ddnetters/conductor.git
+cd conductor
 npm install
-
-# Copy environment template
 cp .env.example .env
-
-# Configure your n8n connection in .env
 ```
 
-### ⚙️ Configuration
-
-Create a `.env` file with your n8n configuration:
+Update `.env` with your n8n credentials:
 
 ```env
 N8N_API_URL=http://localhost:5678
 N8N_API_KEY=your_api_key_here
 ```
 
-### 🎯 Usage
+---
+
+### 🟢 Start the Server
 
 ```bash
 # Development mode
 npm run dev
 
-# Production build
+# Production mode
 npm run build
 npm start
 ```
 
-### 🔌 MCP Client Integration
+---
 
-Add to your MCP client configuration:
+### 🔌 Use with Your MCP Agent
+
+Example agent config (Claude, OpenAI, LangChain, etc.):
 
 ```json
 {
   "mcpServers": {
-    "n8n": {
+    "conductor": {
       "command": "npx",
-      "args": ["n8n-mcp-server"],
+      "args": ["conductor"],
       "env": {
         "N8N_API_URL": "http://localhost:5678",
         "N8N_API_KEY": "your_api_key"
@@ -74,70 +79,91 @@ Add to your MCP client configuration:
 }
 ```
 
-## 🛠️ Available MCP Tools
+---
 
-### 🔄 Workflow Operations
-- `list_workflows` - Get all workflows
-- `get_workflow` - Get workflow details by ID
-- `create_workflow` - Create new workflow
-- `update_workflow` - Update existing workflow
-- `delete_workflow` - Delete workflow
-- `activate_workflow` - Activate workflow
-- `deactivate_workflow` - Deactivate workflow
+## 🧠 Available Tools
 
-### 📊 Execution Operations
-- `list_executions` - Get workflow executions
-- `get_execution` - Get execution details
-- `delete_execution` - Delete execution
+### 🔄 Workflow Tools
 
-### 🎣 Webhook Operations
-- `run_webhook` - Execute workflow via webhook
+| Tool               | Description                         |
+|--------------------|-------------------------------------|
+| `list_workflows`   | List all workflows                  |
+| `get_workflow`     | Get a workflow by ID                |
+| `create_workflow`  | Create a new workflow               |
+| `update_workflow`  | Update an existing workflow         |
+| `delete_workflow`  | Remove a workflow                   |
+| `activate_workflow`| Enable a workflow                   |
+| `deactivate_workflow`| Disable a workflow               |
 
-## 💻 Development
+### 📊 Execution Tools
 
-### 📜 Scripts
+| Tool               | Description                         |
+|--------------------|-------------------------------------|
+| `list_executions`  | View recent executions              |
+| `get_execution`    | Get execution details               |
+| `delete_execution` | Remove execution logs               |
 
-```bash
-npm run dev          # Start development server with hot reload
-npm run build        # Build production bundle
-npm run start        # Start production server
-npm test             # Run tests
-npm run lint         # Check code style
-npm run type-check   # TypeScript validation
-```
+### 🎯 Webhook Tools
 
-### 📁 Project Structure
+| Tool               | Description                         |
+|--------------------|-------------------------------------|
+| `run_webhook`      | Trigger a workflow by webhook       |
+
+---
+
+## 🧰 Project Structure
 
 ```
 src/
-├── index.ts           # Main MCP server entry point
-├── types.ts           # n8n API types and interfaces
-├── config.ts          # Configuration management
-├── handlers/          # MCP tool handlers
-│   ├── workflows.ts   # Workflow operations
-│   ├── executions.ts  # Execution operations
-│   └── webhooks.ts    # Webhook operations
+├── index.ts           # MCP server entry point
+├── types.ts           # n8n type definitions
+├── config.ts          # Env + config loader
+├── handlers/          # Tool-specific logic
+│   ├── workflows.ts
+│   ├── executions.ts
+│   └── webhooks.ts
 ├── client/
-│   └── n8n.ts         # n8n API client
+│   └── n8n.ts         # n8n API client wrapper
 └── utils/
-    ├── logger.ts      # Logging utilities
-    └── validation.ts  # Input validation helpers
+    ├── logger.ts
+    └── validation.ts
 ```
+
+---
+
+## 🛠 Dev Scripts
+
+```bash
+npm run dev         # Run with hot reload
+npm run build       # Compile for production
+npm run start       # Run built server
+npm test            # Run unit tests
+npm run lint        # Lint source files
+npm run type-check  # TypeScript type safety
+```
+
+---
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+Want to improve Conductor? Awesome:
+
+1. Fork this repo
+2. Create a new branch: `git checkout -b feat/amazing-feature`
+3. Commit your changes: `git commit -m "feat: add amazing feature"`
+4. Push to GitHub: `git push origin feat/amazing-feature`
 5. Open a Pull Request
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT — see the [LICENSE](LICENSE) for full details.
 
-## 💬 Support
+---
 
-- **🐛 Issues**: [GitHub Issues](https://github.com/ddnetters/n8n-mcp-server/issues)
-- **📚 n8n Documentation**: [n8n API Docs](https://docs.n8n.io/api/)
-- **🔗 MCP Documentation**: [Model Context Protocol](https://modelcontextprotocol.io/)
+## 💬 Support & Links
+
+- 📂 [GitHub Issues](https://github.com/ddnetters/conductor/issues)
+- 📚 [n8n API Docs](https://docs.n8n.io/api/)
+- 🔗 [Model Context Protocol](https://modelcontextprotocol.io/)
