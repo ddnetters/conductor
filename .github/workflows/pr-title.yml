@@ -2,7 +2,7 @@ name: 📝 PR Title Check
 
 on:
   pull_request:
-    types: [opened, edited, synchronize]
+    types: [opened, edited, synchronize, reopened]
 
 jobs:
   check-title:
@@ -31,6 +31,8 @@ jobs:
           server
           tests
           deps
+          ci
+          security
         requireScope: false
         subjectPattern: ^(?![A-Z]).+$
         subjectPatternError: |
