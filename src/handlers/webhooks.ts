@@ -6,8 +6,8 @@ export class WebhookHandlers {
 
   async runWebhook(args: {
     workflowName: string;
-    data?: unknown;
-    headers?: Record<string, string>;
+    data?: Record<string, unknown> | undefined;
+    headers?: Record<string, string> | undefined;
   }): Promise<ToolResponse> {
     try {
       // TODO: Implement run webhook

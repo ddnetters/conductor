@@ -120,4 +120,5 @@ export interface ToolResponse {
     type: "text";
     text: string;
   }>;
+  _meta?: { [key: string]: unknown };
 }
